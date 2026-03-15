@@ -205,17 +205,17 @@ export default function Home() {
 
   const applySettings = () => {
     const t = parseInt(inputTotal), s = parseInt(inputSelect);
-    if (!t || !s || t < 1 || s < 1) { setError("Enter valid positive numbers."); return; }
-    if (s > t) { setError("Selected count cannot exceed total numbers."); return; }
+    if (!t || !s || t < 1 || s < 1) { setError("Masukkan angka yang valid."); return; }
+    if (s > t) { setError("Jumlah penonton terpilih tidak boleh melebihi jumlah total penonton."); return; }
     setError(""); setTotalNumbers(t); setSelectCount(s); handleReset();
   };
 
   /* ── Second Draw: "Divide" clicked ─ set up if needed, reveal one group ── */
   const handleDivide = () => {
     const g = parseInt(inputGroups);
-    if (!g || g < 1)     { setGroupError("Enter a valid number of groups."); return; }
-    if (g > maxG)        { setGroupError(`Max ${maxG} groups (min 2 members each).`); return; }
-    if (g > selectCount) { setGroupError(`Cannot make ${g} groups from ${selectCount} numbers.`); return; }
+    if (!g || g < 1)     { setGroupError("Masukkan jumlah member yang valid."); return; }
+    if (g > maxG)        { setGroupError(`Maks ${maxG} member (minimal 2 orang per member).`); return; }
+    if (g > selectCount) { setGroupError(`Tidak dapat membuat ${g} member dari ${selectCount} nomor.`); return; }
     setGroupError("");
 
     // If no groups computed yet (or settings changed), compute fresh
@@ -240,16 +240,16 @@ export default function Home() {
   };
 
   const drawBtnLabel = spinning
-    ? "Drawing..."
-    : isDone ? "Complete"
+    ? "Mengundi..."
+    : isDone ? "Selesai"
     : isMulti ? `Draw `
-    : `Draw `;
+    : `Undi `;
 
   const divideBtnLabel = !allGroups
-    ? "Divide"
+    ? "Bagi"
     : s2Done
     ? "Complete"
-    : `Draw `;
+    : `Bagi `;
 
   return (
     <>
@@ -269,7 +269,7 @@ export default function Home() {
 
         {/* HEADER */}
         <div className="header">
-          <div className="title">JKT48 2-Shot Roulettee</div>
+          <div className="title">JKT48 2-Shot Roulette</div>
           <div className="subtitle">by lail</div>
           {isMulti && <div className="triple-badge">Birthday 2-Shot</div>}
         </div>
@@ -364,7 +364,7 @@ export default function Home() {
         {/* ══ SECOND DRAW ══ */}
         <div className="divider">
           <div className="divider-line" />
-          <div className="divider-label">2-Shot Member</div>
+          <div className="divider-label">Pembagian Kelompok</div>
           <div className="divider-line" />
         </div>
 
@@ -388,7 +388,7 @@ export default function Home() {
           </button>
           {groupError && <div className="field-error">⚠ {groupError}</div>}
           <div className="second-hint">
-            Divides 1–{selectCount} into groups of 2–4. Max {maxG} groups.
+            Membagi nomor 1–{selectCount} ke member dengan jumlah 2–4 orang per member. Maks {maxG} member.
             {allGroups && !s2Done && ` · ${revealedGroups.length} of ${allGroups.length} drawn`}
             {s2Done && " · All groups drawn"}
           </div>
